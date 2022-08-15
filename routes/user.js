@@ -8,7 +8,12 @@ const setUserToken = require('../utils/jwt');
 const router = Router();
 
 router.post('/register', async (req, res, next) => {
-  const { id, password } = req.body;
+  const { id, password, name } = req.body;
+  console.log(req.body);
+  if (!id || !password || !name) {
+    res.json({ success: false, message: 'body error' });
+    return;
+  }
   const hashPw = getHash(password);
 
   const exist = await User.findOne({ id });
@@ -20,6 +25,7 @@ router.post('/register', async (req, res, next) => {
 
   const user = await User.create({
     id,
+    name,
     password: hashPw,
   });
   res.json(user);

@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const passportUse = require('./passport');
 const userRouter = require('./routes/user');
@@ -12,6 +13,7 @@ const PORT = process.env.PORT || 8080;
 mongoose.connect('mongodb://localhost/instagram_clone');
 passportUse();
 
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
