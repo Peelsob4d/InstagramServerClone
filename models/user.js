@@ -1,11 +1,15 @@
 const { Schema } = require('mongoose');
 
 const UserSchema = new Schema({
-  id: {
+  email: {
     type: String,
     required: true,
   },
   password: {
+    type: String,
+    required: true,
+  },
+  nickname: {
     type: String,
     required: true,
   },
@@ -15,6 +19,7 @@ const UserSchema = new Schema({
   },
   banner: {
     type: String,
+    default: 'http://localhost:8080/images/default_profile.jpg',
   },
   followers: [
     {
@@ -31,8 +36,7 @@ const UserSchema = new Schema({
   posts: [
     {
       author: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
+        type: Object,
         required: true,
       },
       likes: {

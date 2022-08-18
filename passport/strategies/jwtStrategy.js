@@ -10,11 +10,10 @@ const opts = {
 
 const jwt = new JwtStrategy(opts, async (payload, done) => {
   try {
-    const user = await User.findOne({ id: payload.id });
+    const user = await User.findOne({ email: payload.email });
     if (user) return done(null, user);
     else return done(null, false, { success: false, message: 'Token error' });
   } catch (err) {
-    console.log(err);
     done(err, null);
   }
 });

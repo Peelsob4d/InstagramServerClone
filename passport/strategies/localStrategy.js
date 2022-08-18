@@ -4,13 +4,13 @@ const getHash = require('../../utils/hash_util');
 const { User } = require('../../models');
 
 const config = {
-  usernameField: 'id',
+  usernameField: 'email',
   passwordField: 'password',
 };
 
-const local = new LocalStrategy(config, async (id, password, done) => {
+const local = new LocalStrategy(config, async (email, password, done) => {
   try {
-    const user = await User.findOne({ id });
+    const user = await User.findOne({ email });
     if (!user)
       return done(null, false, {
         success: false,

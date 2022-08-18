@@ -1,10 +1,12 @@
 const jwt = require('jsonwebtoken');
 
 module.exports = (user) => {
-  const id = user.id;
+  const email = user.email;
+  const name = user.name;
 
   const payload = {
-    id,
+    email,
+    name,
     iat: Date.now(),
   };
 

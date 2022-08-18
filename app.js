@@ -5,7 +5,9 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const passportUse = require('./passport');
-const userRouter = require('./routes/user');
+const userRouter = require('./routes/auth');
+const postRouter = require('./routes/post');
+const imageRouter = require('./routes/image');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -22,7 +24,9 @@ app.get('/', (req, res) => {
   res.send('Hello World');
 });
 
-app.use('/user', userRouter);
+app.use('/auth', userRouter);
+app.use('/posts', postRouter);
+app.use('/images', imageRouter);
 
 app.use((err, req, res, next) => {
   res.json(err);

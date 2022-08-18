@@ -8,15 +8,15 @@ const setUserToken = require('../utils/jwt');
 const router = Router();
 
 router.post('/register', async (req, res, next) => {
-  const { id, password, name } = req.body;
+  const { email, password, nickname, name } = req.body;
   console.log(req.body);
-  if (!id || !password || !name) {
+  if (!email || !password || !name || !nickname) {
     res.json({ success: false, message: 'body error' });
     return;
   }
   const hashPw = getHash(password);
 
-  const exist = await User.findOne({ id });
+  const exist = await User.findOne({ email });
 
   if (exist) {
     res.json({ success: false, message: 'Id already exists' });
@@ -24,8 +24,9 @@ router.post('/register', async (req, res, next) => {
   }
 
   const user = await User.create({
-    id,
+    email,
     name,
+    nickname,
     password: hashPw,
   });
   res.json(user);
